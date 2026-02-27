@@ -13,9 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Sagney">
+        android:theme="@style/Theme.SplashScreen">
         <activity
-            android:name=".MainActivity"
+            android:name=".features.presentation.activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Sagney">

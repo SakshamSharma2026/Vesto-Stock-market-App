@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":utilites"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -70,4 +71,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson.converter)
     implementation(libs.okhttp)
+    implementation(libs.splash.screen)
 }
