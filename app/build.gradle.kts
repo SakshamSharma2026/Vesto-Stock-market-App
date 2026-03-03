@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.saksham.sharma.sagney"
+    namespace = "com.saksham.sharma.vesto"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -72,4 +72,9 @@ dependencies {
     implementation(libs.gson.converter)
     implementation(libs.okhttp)
     implementation(libs.splash.screen)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.3.2")
+
 }

@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Sagney"
+rootProject.name = "Vesto"
 include(":app")
 include(":utilites")
