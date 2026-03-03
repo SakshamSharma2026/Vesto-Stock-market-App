@@ -3,6 +3,7 @@ package com.saksham.sharma.vesto.features.presentation.screens.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.saksham.sharma.vesto.BuildConfig
 import com.saksham.sharma.vesto.core.common.UiEvent
 import com.saksham.sharma.vesto.core.network.ConnectivityObserver
 import com.saksham.sharma.vesto.features.domain.usecases.StockUseCases
@@ -26,7 +27,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         observeNetwork()
-       // getIndianTrendingStock("sk-live-GnqspF9r7uYu2Cf9k1t8t6J2CpDCN9FEns5Fyx6N")
+       getIndianTrendingStock(BuildConfig.API_KEY)
     }
 
     private fun observeNetwork() {

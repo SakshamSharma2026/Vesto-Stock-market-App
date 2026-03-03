@@ -1,5 +1,6 @@
 package com.saksham.sharma.vesto.core.di
 
+import com.saksham.sharma.vesto.BuildConfig
 import com.saksham.sharma.vesto.core.network.ApiService
 import com.saksham.sharma.vesto.core.network.ConnectivityObserver
 import com.saksham.sharma.vesto.core.network.NetworkConnectivityObserver
@@ -38,7 +39,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiService(): ApiService {
-        return Retrofit.Builder().baseUrl("https://stock.indianapi.in/")
+        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .client(RetrofitInstance().client)
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(ApiService::class.java)

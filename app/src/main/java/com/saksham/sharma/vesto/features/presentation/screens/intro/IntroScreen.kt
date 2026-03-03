@@ -95,7 +95,7 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Invest your\nmoney in\nSagney",
+                        text = "Invest your\nmoney in\nVesto",
                         fontSize = 68.sp,
                         fontWeight = FontWeight.Normal,
                         lineHeight = 72.sp,

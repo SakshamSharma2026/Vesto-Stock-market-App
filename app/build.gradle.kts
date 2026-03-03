@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -23,6 +25,14 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val localProperties = Properties()
+    val localPropertiesFile = File(rootDir, "secret.properties")
+    if (localPropertiesFile.exists() && localPropertiesFile.isFile) {
+        localPropertiesFile.inputStream().use {
+            localProperties.load(it)
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -34,6 +44,8 @@ android {
         }
 
         debug {
+            buildConfigField("String", "BASE_URL", localProperties.getProperty("BASE_URL"))
+            buildConfigField("String", "API_KEY", localProperties.getProperty("API_KEY"))
             isMinifyEnabled = false
             isDebuggable = true
         }

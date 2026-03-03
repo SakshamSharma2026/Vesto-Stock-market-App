@@ -15,7 +15,7 @@ import com.saksham.sharma.vesto.features.presentation.screens.intro.IntroScreen
 fun AppNavGraph(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Surface(modifier.fillMaxSize()) {
-        NavHost(navController, startDestination = Screen.HomeScreen.route) {
+        NavHost(navController, startDestination = Screen.IntroScreen.route) {
             composable(route = Screen.IntroScreen.route) {
                 IntroScreen(modifier, onPrimaryBtnClicked = {
                     navController.navigate(Screen.HomeScreen.route)
