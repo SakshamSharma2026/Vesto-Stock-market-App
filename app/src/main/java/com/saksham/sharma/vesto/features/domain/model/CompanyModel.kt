@@ -1,7 +1,10 @@
 package com.saksham.sharma.vesto.features.domain.model
 
+import androidx.compose.runtime.Immutable
 import com.saksham.sharma.vesto.R
 
+
+@Immutable
 data class Company(
     val name: String,
     val ticker: String,

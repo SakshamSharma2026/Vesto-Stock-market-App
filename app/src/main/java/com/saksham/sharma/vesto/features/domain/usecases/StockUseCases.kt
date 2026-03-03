@@ -10,11 +10,19 @@ import javax.inject.Inject
 
 class StockUseCases @Inject constructor(private val stockRepository: StockRepository) {
 
-    fun getIndianTrendingStock(apiKey: String) =
+    fun getIndianTrendingStock() =
         flow {
             emit(UiEvent.Loading())
-            emit(UiEvent.Success(stockRepository.getIndianTrendingStock(apiKey)))
+            emit(UiEvent.Success(stockRepository.getIndianTrendingStock()))
         }.catch {
             emit(UiEvent.Error(it.message.toString()))
         }.flowOn(Dispatchers.IO)
+
+    fun getStockDetails(stockName: String) = flow {
+        emit(UiEvent.Loading())
+        emit(UiEvent.Success(stockRepository.getStockDetails(stockName)))
+    }.catch {
+        emit(UiEvent.Error(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
 }

@@ -1,5 +1,5 @@
 package com.saksham.sharma.vesto.features.data.model
 
-data class IndianStockModelResponse(
+data class IndianStockResponse(
     val trending_stocks: TrendingStocks
 )

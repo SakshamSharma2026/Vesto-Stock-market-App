@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.saksham.sharma.vesto.features.presentation.screens.AppNavGraph
+import com.saksham.sharma.vesto.core.common.AppNavGraph
 import com.saksham.sharma.vesto.ui.theme.SagneyTheme
 import dagger.hilt.android.AndroidEntryPoint
 

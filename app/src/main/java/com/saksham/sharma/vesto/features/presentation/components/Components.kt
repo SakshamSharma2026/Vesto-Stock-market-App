@@ -2,11 +2,13 @@ package com.saksham.sharma.vesto.features.presentation.components
 
 
 import android.app.Activity
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,17 +26,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowOutward
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.AddCircleOutline
+import androidx.compose.material.icons.outlined.ArrowOutward
 import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.outlined.Atm
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.CompareArrows
-import androidx.compose.material.icons.outlined.Forward
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.PersonOutline
-import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,6 +45,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,9 +62,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.saksham.sharma.vesto.R
-import com.saksham.sharma.vesto.features.domain.model.StoryItemInfo
+import com.saksham.sharma.vesto.features.domain.model.StoryItemInfoModel
+import com.saksham.sharma.vesto.features.presentation.screens.home.StockTab
 import com.saksham.sharma.vesto.ui.theme.accentGreen
 import com.saksham.sharma.vesto.ui.theme.bgColor
+import com.saksham.sharma.vesto.ui.theme.darkBlackColor
 import com.saksham.sharma.vesto.ui.theme.greyColor
 import com.saksham.sharma.vesto.ui.theme.primaryColor
 
@@ -99,8 +104,8 @@ fun TopBarSection(modifier: Modifier = Modifier) {
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            IconButtonWithBg(icon = Icons.Outlined.QrCodeScanner)
             IconButtonWithBg(icon = Icons.Outlined.Search)
+            IconButtonWithBg(icon = Icons.Outlined.Notifications)
         }
     }
 }
@@ -128,49 +133,49 @@ fun IconButtonWithBg(icon: ImageVector) {
 @Composable
 fun StoriesSection(modifier: Modifier = Modifier) {
     val storyList = listOf(
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Meta",
             iconRes = R.drawable.meta,
             ringColors = listOf(Color(0xFF1E88E5), Color(0xFF64B5F6)),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Apple",
             iconRes = R.drawable.apple,
             ringColors = listOf(Color.DarkGray, Color.Gray),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Google",
             iconRes = R.drawable.google,
             ringColors = listOf(Color.Red, Color.Blue),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Pinterest",
             iconRes = R.drawable.pinterest,
             ringColors = listOf(Color.Red, Color.Red),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Alibaba",
             iconRes = R.drawable.alibaba,
             ringColors = listOf(Color(0xFFFFA500), Color.Yellow),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Netflix",
             iconRes = R.drawable.netflix,
             ringColors = listOf(Color.Red, Color.Red),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Paypal",
             iconRes = R.drawable.paypal,
             ringColors = listOf(Color(0xFF64B5F6), Color(0xFF1E88E5)),
             bg = Color.White
         ),
-        StoryItemInfo(
+        StoryItemInfoModel(
             label = "Spotify",
             iconRes = R.drawable.spotify,
             ringColors = listOf(Color.Green, Color.Green),
@@ -180,7 +185,9 @@ fun StoriesSection(modifier: Modifier = Modifier) {
         )
 
     LazyRow(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(storyList) { it ->
@@ -272,7 +279,7 @@ fun BalanceCard(modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Forward,
+                        imageVector = Icons.Outlined.ArrowOutward,
                         contentDescription = null,
                         tint = Color.Black,
                         modifier = Modifier.size(20.dp)
@@ -288,7 +295,7 @@ fun BalanceCard(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.Bottom
             ) {
                 Text(
-                    text = "$5,738.25",
+                    text = "\u20B9 5,738.25",
                     color = Color.Black,
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold
@@ -305,7 +312,7 @@ fun BalanceCard(modifier: Modifier = Modifier) {
             Row {
                 Text("Profit: ", color = Color.Gray, fontSize = 14.sp)
                 Text(
-                    "+$295.83",
+                    "+\u20B9295.83",
                     color = Color(0xFF1E8E42),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold
@@ -319,7 +326,9 @@ fun BalanceCard(modifier: Modifier = Modifier) {
 @Composable
 fun ActionButtonsSection(modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ActionButton(
@@ -407,14 +416,14 @@ fun AiInsightsCard(modifier: Modifier = Modifier) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .background(Color.White, RoundedCornerShape(10.dp)),
+                        .size(42.dp)
+                        .background(Color.White, RoundedCornerShape(12.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Default.AutoAwesome,
+                        imageVector = Icons.Outlined.AutoAwesome,
                         contentDescription = null,
-                        tint = Color(0xFF1E8E42),
+                        tint = darkBlackColor,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -423,13 +432,13 @@ fun AiInsightsCard(modifier: Modifier = Modifier) {
                     Text(
                         text = "AI Insights",
                         color = Color.Black,
-                        fontSize = 15.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "Analyse Your Spending Activity",
                         color = Color(0xFF333333),
-                        fontSize = 12.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -447,29 +456,51 @@ fun AiInsightsCard(modifier: Modifier = Modifier) {
 
 @Composable
 fun MarketTabs(
-    modifier: Modifier = Modifier,
-    tabs: List<String> = listOf("Favourites", "Gainers", "Losers"),
-    selectedTabIndex: Int,
-    onTabSelected: (Int) -> Unit
+    selectedTab: StockTab,
+    onTabSelected: (StockTab) -> Unit,
+    modifier: Modifier = Modifier
 ) {
+    val tabs = StockTab.entries.toTypedArray()
+
     LazyRow(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        items(tabs.size) { index ->
-            val isSelected = selectedTabIndex == index
+        items(
+            items = tabs,
+            key = { it.name }   // stable key
+        ) { tab ->
+
+            val isSelected = tab == selectedTab
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.clickable { onTabSelected(index) }
+                modifier = Modifier
+
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember {
+                            MutableInteractionSource()
+                        },
+                        onClick = { onTabSelected(tab) })
             ) {
                 Text(
-                    text = tabs[index],
+                    text = tab.title,
                     fontSize = 16.sp,
-                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                    color = if (isSelected) Color.Black else Color.Gray,
+                    fontWeight = if (isSelected)
+                        FontWeight.Bold
+                    else
+                        FontWeight.Medium,
+                    color = if (isSelected)
+                        Color.Black
+                    else
+                        Color.Gray,
                     modifier = Modifier.padding(vertical = 4.dp)
                 )
-                if (isSelected) {
+
+                AnimatedVisibility(visible = isSelected) {
                     Box(
                         modifier = Modifier
                             .height(3.dp)
@@ -477,8 +508,6 @@ fun MarketTabs(
                             .clip(RoundedCornerShape(1.5.dp))
                             .background(Color.Black)
                     )
-                } else {
-                    Spacer(modifier = Modifier.height(3.dp))
                 }
             }
         }
@@ -487,6 +516,7 @@ fun MarketTabs(
 
 @Composable
 fun StockItemCard(
+    modifier: Modifier = Modifier,
     index: Int,
     companyName: String,
     ticker: String,
@@ -495,11 +525,13 @@ fun StockItemCard(
     priceCurrent: String,
     minPrice: String,
     maxPrice: String,
+    onClick: () -> Unit = {}
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp)
+            .clickable { onClick() }
             .background(Color.Transparent),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -550,14 +582,14 @@ fun StockItemCard(
         // Prices
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = priceCurrent,
+                text = "\u20B9 $priceCurrent",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Min $minPrice • Max $maxPrice",
+                text = "Min \u20B9 $minPrice • Max \u20B9 $maxPrice",
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.Gray
