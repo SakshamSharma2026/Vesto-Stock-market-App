@@ -1,9 +1,9 @@
 package com.core.network.di
 
 import android.content.Context
+import com.core.network.BuildConfig
 import com.core.network.connectivity.ConnectivityObserver
 import com.core.network.connectivity.NetworkConnectivityObserver
-import com.core.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

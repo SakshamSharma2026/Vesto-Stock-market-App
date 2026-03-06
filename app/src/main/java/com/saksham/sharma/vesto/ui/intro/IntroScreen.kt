@@ -35,19 +35,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.saksham.sharma.vesto.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.feature.stock.ui.model.Company
 import com.feature.stock.ui.components.SystemBarStyle
-import com.feature.stock.ui.screen.ui.theme.BorderLightGray
-import com.feature.stock.ui.screen.ui.theme.ButtonDark
 import com.feature.stock.ui.components.companyList1
 import com.feature.stock.ui.components.companyList2
 import com.feature.stock.ui.components.companyList3
+import com.feature.stock.ui.model.Company
+import com.feature.stock.ui.screen.ui.theme.BorderLightGray
+import com.feature.stock.ui.screen.ui.theme.ButtonDark
+import com.saksham.sharma.vesto.R
 
 
 @Preview(showBackground = true)

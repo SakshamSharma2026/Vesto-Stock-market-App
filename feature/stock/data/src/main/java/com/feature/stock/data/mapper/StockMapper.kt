@@ -1,7 +1,17 @@
 package com.feature.stock.data.mapper
 
-import com.feature.stock.data.dto.*
-import com.feature.stock.domain.model.*
+import com.feature.stock.data.dto.IndianStockResponse
+import com.feature.stock.data.dto.StockDetailsResponse
+import com.feature.stock.data.dto.TopGainer
+import com.feature.stock.data.dto.TopLoser
+import com.feature.stock.domain.model.AnalystInfo
+import com.feature.stock.domain.model.AnalystSentiment
+import com.feature.stock.domain.model.IndianStockData
+import com.feature.stock.domain.model.ShareholdingPattern
+import com.feature.stock.domain.model.StockDetailsData
+import com.feature.stock.domain.model.StockItem
+import com.feature.stock.domain.model.StockNews
+import com.feature.stock.domain.model.StockStats
 
 fun IndianStockResponse.toDomain(): IndianStockData {
     return IndianStockData(
