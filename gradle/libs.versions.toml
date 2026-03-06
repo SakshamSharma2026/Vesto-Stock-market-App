@@ -20,6 +20,7 @@ ksp = "2.3.5"
 appcompat = "1.7.1"
 material3= "1.5.0-alpha15"
 splashScreen = "1.2.0"
+material = "1.13.0"
 
 
 [libraries]
@@ -48,6 +49,7 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHtt
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 #material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 
 

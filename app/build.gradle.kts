@@ -62,6 +62,11 @@ android {
 
 dependencies {
     implementation(project(":utilites"))
+    implementation(project(":feature:stock:data"))
+    implementation(project(":feature:stock:domain"))
+    implementation(project(":feature:stock:ui"))
+    implementation(project(":core:common"))
+    implementation(project(":core:feature_api"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
