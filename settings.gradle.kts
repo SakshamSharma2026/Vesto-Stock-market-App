@@ -22,6 +22,14 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Sagney"
+rootProject.name = "Vesto"
 include(":app")
 include(":utilites")
+include(":feature:stock:data")
+include(":feature:stock:domain")
+include(":feature:stock:ui")
+include(":core:common")
+include(":core:feature_api")
+include(":core:network")
+include(":core:database")
+include(":core:database")

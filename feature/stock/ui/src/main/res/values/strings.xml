@@ -1,0 +1,27 @@
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="stocks">Stocks</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    
+    <string name="performance_and_ratios">Performance &amp; Ratios</string>
+    <string name="one_d_high">1D High</string>
+    <string name="p_e_ratio">P/E Ratio</string>
+    <string name="one_d_low">1D Low</string>
+    <string name="div_yield">Div. Yield</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="prev_close">Prev. Close</string>
+    
+    <string name="historical_stats">Historical Stats</string>
+    <string name="fifty_two_w_high">52W High</string>
+    <string name="fifty_two_w_low">52W Low</string>
+    <string name="industry">Industry</string>
+    <string name="exchange">Exchange</string>
+    
+    <string name="about_company">About Company</string>
+    <string name="show_less">Show Less</string>
+    <string name="show_more">Show More</string>
+    
+    <string name="recent_news">Recent News</string>
+    
+    <string name="analyst_sentiment">Analyst Sentiment</string>
+</resources>

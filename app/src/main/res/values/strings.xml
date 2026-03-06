@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Sagney</string>
+    <string name="app_name">Vesto</string>
+    <string name="intro_top_app_investment">👑 TOP APP INVESTMENT IN THE WORLD</string>
+    <string name="intro_invest_your_money">Invest your\nmoney in\nVesto</string>
+    <string name="intro_get_started">Get started</string>
 </resources>
