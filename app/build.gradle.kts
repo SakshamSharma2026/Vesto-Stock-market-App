@@ -91,7 +91,7 @@ dependencies {
     implementation(libs.splash.screen)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.accompanist.systemuicontroller)
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.3.2")
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
 }

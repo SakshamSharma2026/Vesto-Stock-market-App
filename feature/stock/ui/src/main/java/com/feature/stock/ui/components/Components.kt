@@ -28,13 +28,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowOutward
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
-import androidx.compose.material.icons.outlined.AddCircleOutline
 import androidx.compose.material.icons.outlined.ArrowOutward
 import androidx.compose.material.icons.outlined.Article
-import androidx.compose.material.icons.outlined.Atm
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.BarChart
-import androidx.compose.material.icons.outlined.CompareArrows
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.Search
@@ -61,6 +58,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import com.feature.stock.ui.R
 import com.feature.stock.ui.model.Company
 import com.feature.stock.ui.model.StoryItemInfoModel
 import com.feature.stock.ui.screen.stock.StockTab
@@ -69,7 +67,6 @@ import com.feature.stock.ui.screen.ui.theme.bgColor
 import com.feature.stock.ui.screen.ui.theme.darkBlackColor
 import com.feature.stock.ui.screen.ui.theme.greyColor
 import com.feature.stock.ui.screen.ui.theme.primaryColor
-import com.feature.stock.ui.R
 
 
 val companyList1 = listOf(
