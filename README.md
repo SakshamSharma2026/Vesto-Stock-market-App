@@ -36,7 +36,30 @@
 
 ## 🛠️ Tech Stack and Architecture
 
-Vesto is structured using **Clean Architecture** principles and the **MVVM** pattern, divided into clearly defined modules (e.g., `:utilites`) to ensure high scalability and separation of concerns.
+Vesto is built with a highly scalable, robust **Multi-Module Architecture** based on **Clean Architecture** principles and the **MVVM** pattern. This structure ensures a strict separation of concerns, improves build times, and enables feature isolation, making the codebase highly maintainable and testable as it grows.
+
+### 🏗️ Module Structure
+
+The project is divided into clearly defined layers and independent modules:
+
+- **`:app`**: The application's entry point, handling dependency injection wiring, global navigation, and core application-level configurations.
+- **`:core`**: Contains foundational modules meant to be shared across the entire application.
+  - `:core:common`: Shared utilities, extensions, and constants.
+  - `:core:feature_api`: Navigation interfaces representing contracts between features.
+  - `:core:network`: Centralized networking infrastructure (Retrofit setup, OkHttp interceptors).
+  - `:core:database`: Local persistence setup.
+- **`:feature`**: Houses isolated business features. Features (like `stock`) are further decomposed into layer modules to strictly enforce Clean Architecture:
+  - `...:data`: Repository implementations, remote endpoints, and network/local DTOs.
+  - `...:domain`: Pure Kotlin business logic, Use Cases, domain models, and repository contracts. Fully abstracted from Android UI/Data dependencies.
+  - `...:ui`: Jetpack Compose screens, ViewModels, and UI-specific State/Event handling.
+- **`:utilites`**: High-level shared components used app-wide.
+
+### 🛡 Data Flow & Modeling Strategy
+To prevent leaky abstractions, the architecture enforces strict boundary crossing:
+- **DTOs (Data Transfer Objects)** map raw network/database structures in the Data layer.
+- **Domain Models** represent pristine business data required for domain logic.
+- **UI States** represent exactly what should be rendered on screen.
+- **Mappers** are used to safely bridge and transform these representations between the Data, Domain, and UI layers.
 
 ### Core Technologies
 - **[Kotlin](https://kotlinlang.org/)**: 100% Kotlin implementation for expressive, concise, and safe code.
