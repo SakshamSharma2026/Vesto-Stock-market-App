@@ -62,11 +62,17 @@ android {
 
 dependencies {
     implementation(project(":utilites"))
+    implementation(project(":core:common"))
+    implementation(project(":core:feature_api"))
     implementation(project(":feature:stock:data"))
     implementation(project(":feature:stock:domain"))
     implementation(project(":feature:stock:ui"))
-    implementation(project(":core:common"))
-    implementation(project(":core:feature_api"))
+    implementation(project(":feature:news:data"))
+    implementation(project(":feature:news:domain"))
+    implementation(project(":feature:news:ui"))
+    implementation(project(":feature:profile:ui"))
+    implementation(project(":feature:auth:ui"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

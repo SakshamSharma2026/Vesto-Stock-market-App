@@ -19,17 +19,29 @@ internal object InternalStockFeatureApi : FeatureApi {
         ) {
             composable(StockFeature.STOCK_NESTED_ROUTE) {
                 val viewModel = hiltViewModel<StocksViewModel>()
-                StocksScreen(viewModel, onStockClicked = { stockName ->
-                    val route =
-                        StockFeature.STOCK_DETAILS_SCREEN_ROUTE.replace("{stock_name}", stockName)
-                    navController.navigate(route)
-                })
+                StocksScreen(
+                    viewModel = viewModel,
+                    onStockClicked = { stockName ->
+                        val route =
+                            StockFeature.STOCK_DETAILS_SCREEN_ROUTE.replace("{stock_name}", stockName)
+                        navController.navigate(route)
+                    },
+                    onAddMoneyClicked = {
+                        navController.navigate(StockFeature.ADD_MONEY_SCREEN_ROUTE)
+                    }
+                )
             }
 
             composable(StockFeature.STOCK_DETAILS_SCREEN_ROUTE) { backStackEntry ->
                 val stockName = backStackEntry.arguments?.getString("stock_name") ?: ""
                 com.feature.stock.ui.screen.stock_details.StockDetailsScreen(
                     stockName = stockName,
+                    onBackClicked = { navController.popBackStack() }
+                )
+            }
+
+            composable(StockFeature.ADD_MONEY_SCREEN_ROUTE) {
+                com.feature.stock.ui.screen.add_money.AddMoneyScreen(
                     onBackClicked = { navController.popBackStack() }
                 )
             }

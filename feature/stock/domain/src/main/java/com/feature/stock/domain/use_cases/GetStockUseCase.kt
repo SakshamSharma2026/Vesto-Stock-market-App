@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 class GetStockUseCase @Inject constructor(private val stockRepository: StockRepository) {
 
-    fun getIndianTrendingStock() =
+    fun getTrendingStocks() =
         flow {
             emit(UiEvent.Loading())
-            emit(UiEvent.Success(stockRepository.getIndianTrendingStock()))
+            emit(UiEvent.Success(stockRepository.getTrendingStocks()))
         }.catch {
             emit(UiEvent.Error(it.message.toString()))
         }.flowOn(Dispatchers.IO)

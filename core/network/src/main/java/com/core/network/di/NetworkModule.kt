@@ -1,6 +1,7 @@
 package com.core.network.di
 
 import android.content.Context
+import com.core.network.ApiService
 import com.core.network.BuildConfig
 import com.core.network.connectivity.ConnectivityObserver
 import com.core.network.connectivity.NetworkConnectivityObserver
@@ -55,6 +56,12 @@ object NetworkModule {
             .build()
 
 
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 
 

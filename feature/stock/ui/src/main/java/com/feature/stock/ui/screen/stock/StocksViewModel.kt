@@ -24,7 +24,7 @@ class StocksViewModel @Inject constructor(
 
     init {
         observeNetwork()
-        getIndianTrendingStock()
+        getTrendingStock()
     }
 
     private fun observeNetwork() {
@@ -40,8 +40,8 @@ class StocksViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun getIndianTrendingStock() {
-        stockUseCases.getIndianTrendingStock()
+    private fun getTrendingStock() {
+        stockUseCases.getTrendingStocks()
             .onEach { result ->
 
                 when (result) {
@@ -58,11 +58,9 @@ class StocksViewModel @Inject constructor(
                     }
 
                     is UiEvent.Success -> {
-                        val gainers = result.data?.gainers
-                            .orEmpty()
+                        val gainers = result.data.gainers
 
-                        val losers = result.data?.losers
-                            .orEmpty()
+                        val losers = result.data.losers
 
                         _uiState.update {
                             it.copy(

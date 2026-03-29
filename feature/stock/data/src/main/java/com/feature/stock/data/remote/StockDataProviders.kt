@@ -1,5 +1,6 @@
 package com.feature.stock.data.remote
 
+import com.core.network.ApiService
 import javax.inject.Inject
 
 class StockDataProviders @Inject constructor(private val apiService: ApiService) {

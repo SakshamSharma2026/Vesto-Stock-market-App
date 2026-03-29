@@ -1,0 +1,40 @@
+package com.core.network.model
+
+data class IndianStockResponse(
+    val trending_stocks: TrendingStocks
+)
+
+data class TrendingStocks(
+    val top_gainers: List<Gainer>,
+    val top_losers: List<Gainer>
+)
+
+data class Gainer(
+    val ask: String,
+    val ask_size: String,
+    val bid: String,
+    val bid_size: String,
+    val close: String,
+    val company_name: String,
+    val date: String,
+    val exchange_type: String,
+    val high: String,
+    val long_term_trends: String,
+    val lot_size: String,
+    val low: String,
+    val low_circuit_limit: String,
+    val net_change: String,
+    val `open`: String,
+    val overall_rating: String,
+    val percent_change: String,
+    val price: String,
+    val ric: String,
+    val short_term_trends: String,
+    val ticker_id: String,
+    val time: String,
+    val total_share_outstanding: String,
+    val up_circuit_limit: String,
+    val volume: String,
+    val year_high: String,
+    val year_low: String
+)
