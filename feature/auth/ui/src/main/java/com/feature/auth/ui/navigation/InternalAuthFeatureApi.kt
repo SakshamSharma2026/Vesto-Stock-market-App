@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.core.common.navigation_constant.AuthFeature
+import com.core.common.navigation_constant.MainFeature
 import com.core.feature_api.FeatureApi
 import com.feature.auth.ui.screen.AuthScreen
 
@@ -18,7 +19,11 @@ internal object InternalAuthFeatureApi : FeatureApi {
             route = AuthFeature.AUTH_SCREEN_ROUTE
         ) {
             composable(AuthFeature.AUTH_NESTED_ROUTE) {
-                AuthScreen()
+                AuthScreen(onGoogleSignInClick = {
+                    navController.navigate(MainFeature.MAIN_SCREEN_ROUTE) {
+                        popUpTo(AuthFeature.AUTH_SCREEN_ROUTE) { inclusive = true }
+                    }
+                })
             }
         }
     }

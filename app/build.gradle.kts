@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.saksham.sharma.sagney"
+        applicationId = "com.saksham.sharma.vesto"
         minSdk = 33
         targetSdk = 36
         versionCode = 1
