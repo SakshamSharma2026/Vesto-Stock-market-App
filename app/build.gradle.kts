@@ -45,8 +45,8 @@ android {
         }
 
         debug {
-            buildConfigField("String", "BASE_URL", localProperties.getProperty("BASE_URL"))
-            buildConfigField("String", "API_KEY", localProperties.getProperty("API_KEY"))
+            buildConfigField("String", "BASE_URL", localProperties.getProperty("BASE_URL") ?: "\"\"")
+            buildConfigField("String", "API_KEY", localProperties.getProperty("API_KEY") ?: "\"\"")
             isMinifyEnabled = false
             isDebuggable = true
         }

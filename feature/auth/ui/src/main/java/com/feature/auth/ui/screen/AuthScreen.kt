@@ -42,9 +42,12 @@ import com.core.common.greyColor
 import com.feature.auth.ui.R
 import kotlinx.coroutines.launch
 
+import androidx.compose.material3.CircularProgressIndicator
+
 @Preview
 @Composable
 fun AuthScreen(
+    authState: AuthState = AuthState.Idle,
     onSignInClick: suspend () -> IntentSender? = { null },
     onSignInResult: (Intent?) -> Unit = {}
 ) {
@@ -129,35 +132,41 @@ fun AuthScreen(
                         .clip(RoundedCornerShape(32.dp))
                         .background(Color.White)
                         .clickable {
-                            scope.launch {
-                                val intentSender = onSignInClick()
-                                if (intentSender != null) {
-                                    launcher.launch(
-                                        IntentSenderRequest.Builder(intentSender).build()
-                                    )
+                            if (authState !is AuthState.Loading) {
+                                scope.launch {
+                                    val intentSender = onSignInClick()
+                                    if (intentSender != null) {
+                                        launcher.launch(
+                                            IntentSenderRequest.Builder(intentSender).build()
+                                        )
+                                    }
                                 }
                             }
                         }
                         .border(1.5.dp, Color.Black.copy(alpha = 0.05f), RoundedCornerShape(32.dp)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.google),
-                            contentDescription = "Google Logo",
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-                        Text(
-                            text = "Continue with Google",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black,
-                            letterSpacing = 0.sp
-                        )
+                    if (authState is AuthState.Loading) {
+                        CircularProgressIndicator(color = Color.Black, modifier = Modifier.size(24.dp), strokeWidth = 2.dp)
+                    } else {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.google),
+                                contentDescription = "Google Logo",
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(
+                                text = "Continue with Google",
+                                fontSize = 17.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                letterSpacing = 0.sp
+                            )
+                        }
                     }
                 }
                 

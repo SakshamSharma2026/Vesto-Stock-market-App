@@ -36,11 +36,5 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
+          name: vesto-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload AAR Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: aar-library
-          path: dog_network/build/outputs/aar/*.aar

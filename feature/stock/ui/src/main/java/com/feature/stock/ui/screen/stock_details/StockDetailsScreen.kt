@@ -356,21 +356,49 @@ fun PriceChart(
         val width = constraints.maxWidth.toFloat()
         val height = constraints.maxHeight.toFloat()
 
-        val minPrice = prices.minOrNull() ?: 0.0
-        val maxPrice = prices.maxOrNull() ?: 100.0
-        val priceRange = (maxPrice - minPrice).coerceAtLeast(0.01)
+        val minPrice = remember(prices) { prices.minOrNull() ?: 0.0 }
+        val maxPrice = remember(prices) { prices.maxOrNull() ?: 100.0 }
+        val priceRange = remember(maxPrice, minPrice) { (maxPrice - minPrice).coerceAtLeast(0.01) }
 
-        val points = if (prices.size > 1) {
-            prices.mapIndexed { index, price ->
-                val x = (index.toFloat() / (prices.size - 1)) * width
-                val y = (1f - ((price - minPrice).toFloat() / priceRange.toFloat())) * height
-                Offset(x, y)
+        val points = remember(prices, width, height) {
+            if (prices.size > 1) {
+                prices.mapIndexed { index, price ->
+                    val x = (index.toFloat() / (prices.size - 1)) * width
+                    val y = (1f - ((price - minPrice).toFloat() / priceRange.toFloat())) * height
+                    Offset(x, y)
+                }
+            } else emptyList()
+        }
+
+        val chartPath = remember(points) {
+            val p = Path()
+            if (points.isNotEmpty()) {
+                p.moveTo(points.first().x, points.first().y)
+                for (i in 1 until points.size) {
+                    val current = points[i]
+                    val previous = points[i - 1]
+                    val controlPoint1 = Offset((current.x + previous.x) / 2f, previous.y)
+                    val controlPoint2 = Offset((current.x + previous.x) / 2f, current.y)
+                    p.cubicTo(
+                        controlPoint1.x, controlPoint1.y,
+                        controlPoint2.x, controlPoint2.y,
+                        current.x, current.y
+                    )
+                }
             }
-        } else emptyList()
+            p
+        }
+
+        val fillPath = remember(points, width, height) {
+            Path().apply {
+                addPath(chartPath)
+                lineTo(width, height)
+                lineTo(0f, height)
+                close()
+            }
+        }
 
         Canvas(modifier = Modifier.fillMaxSize()) {
-            val path = Path()
-
             // Grid lines
             val gridLines = 3
             for (i in 0..gridLines) {
@@ -392,26 +420,6 @@ fun PriceChart(
             }
 
             if (points.isNotEmpty()) {
-                path.moveTo(points.first().x, points.first().y)
-                for (i in 1 until points.size) {
-                    val current = points[i]
-                    val previous = points[i - 1]
-                    val controlPoint1 = Offset((current.x + previous.x) / 2, previous.y)
-                    val controlPoint2 = Offset((current.x + previous.x) / 2, current.y)
-                    path.cubicTo(
-                        controlPoint1.x, controlPoint1.y,
-                        controlPoint2.x, controlPoint2.y,
-                        current.x, current.y
-                    )
-                }
-
-                val fillPath = Path().apply {
-                    addPath(path)
-                    lineTo(width, height)
-                    lineTo(0f, height)
-                    close()
-                }
-
                 drawPath(
                     path = fillPath,
                     brush = Brush.verticalGradient(
@@ -420,7 +428,7 @@ fun PriceChart(
                 )
 
                 drawPath(
-                    path = path,
+                    path = chartPath,
                     color = color,
                     style = Stroke(
                         width = 3.dp.toPx(),
