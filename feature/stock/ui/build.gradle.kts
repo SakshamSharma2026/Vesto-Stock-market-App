@@ -39,10 +39,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:auth:domain"))
     implementation(project(":core:feature_api"))
     implementation(project(":core:common"))
     implementation(project(":core:network"))
     implementation(project(":core:database"))
+    implementation(libs.coil.compose)
     implementation(project(":feature:stock:data"))
     implementation(project(":feature:stock:domain"))
 

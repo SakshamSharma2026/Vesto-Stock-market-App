@@ -45,10 +45,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.feature.news.domain.model.News
 import com.core.common.bgColor
-import com.core.common.primaryColor
 import com.core.common.greyColor
+import com.core.common.primaryColor
+import com.feature.news.domain.model.News
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,7 +71,7 @@ fun NewsScreen(
                 ) {
                     Text(
                         "Market News",
-                        fontSize = 28.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Black,
                         letterSpacing = (-1).sp,
                         color = Color.Black
@@ -105,7 +105,7 @@ fun NewsScreen(
                     start = 24.dp,
                     end = 24.dp,
                     top = 8.dp,
-                    bottom = 24.dp // Standardized bottom padding
+                    bottom = 140.dp // Adjusted for floating bar
                 )
             ) {
                 items(uiState.news) { article ->
@@ -132,7 +132,7 @@ fun NewsItemCard(article: News) {
         Column {
             AsyncImage(
                 model = article.imageUrl,
-                contentDescription = "${article.title} thumrefbnail image",
+                contentDescription = "${article.title} thumbnail image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)

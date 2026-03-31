@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,7 +62,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":utilites"))
+    implementation(project(":utilities"))
     implementation(project(":core:common"))
     implementation(project(":core:feature_api"))
     implementation(project(":feature:stock:data"))
@@ -71,6 +72,8 @@ dependencies {
     implementation(project(":feature:news:domain"))
     implementation(project(":feature:news:ui"))
     implementation(project(":feature:profile:ui"))
+    implementation(project(":feature:auth:data"))
+    implementation(project(":feature:auth:domain"))
     implementation(project(":feature:auth:ui"))
 
     implementation(libs.androidx.core.ktx)
@@ -99,5 +102,6 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
 }

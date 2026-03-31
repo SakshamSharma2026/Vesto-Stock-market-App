@@ -24,7 +24,7 @@ fun Gainer.toDomain(): StockItem {
         companyName = company_name,
         ticker = ric,
         price = price,
-        percentChange = percent_change?.toDoubleOrNull() ?: 0.0,
+        percentChange = percent_change.toDoubleOrNull() ?: 0.0,
         low = low,
         high = high
     )

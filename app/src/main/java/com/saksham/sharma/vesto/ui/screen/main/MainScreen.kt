@@ -8,17 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.core.common.bgColor
 import com.core.common.navigation_constant.NewsFeature
 import com.core.common.navigation_constant.ProfileFeature
 import com.core.common.navigation_constant.StockFeature
-import com.feature.stock.ui.components.VestoBottomBar
 import com.feature.stock.ui.components.SystemBarStyle
-import com.core.common.bgColor
+import com.feature.stock.ui.components.VestoBottomBar
 import com.saksham.sharma.vesto.navigation.NavigationProvider
 
 @Composable
@@ -35,9 +34,24 @@ fun MainScreen(
 
     Scaffold(
         containerColor = bgColor,
-        bottomBar = {
-            // Reusing the VestoBottomBar from the stock module
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = innerPadding.calculateBottomPadding())
+        ) {
+            NavHost(
+                navController = bottomNavController,
+                startDestination = StockFeature.STOCK_SCREEN_ROUTE,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                navigationProvider.stockApi.registerGraph(topLevelNavController, this)
+                navigationProvider.newsApi.registerGraph(topLevelNavController, this)
+                navigationProvider.profileApi.registerGraph(topLevelNavController, this)
+            }
+
             VestoBottomBar(
+                modifier = Modifier.align(Alignment.BottomCenter),
                 selectedRoute = currentRoute,
                 onHomeClick = {
                     bottomNavController.navigate(StockFeature.STOCK_SCREEN_ROUTE) {
@@ -61,24 +75,6 @@ fun MainScreen(
                     }
                 }
             )
-        }
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            NavHost(
-                navController = bottomNavController,
-                startDestination = StockFeature.STOCK_SCREEN_ROUTE,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                // We only register the main screens here for the tabs
-                // But wait, registerGraph registers everything.
-                // We might need to split it or handle navigation carefully.
-                navigationProvider.stockApi.registerGraph(topLevelNavController, this)
-                navigationProvider.newsApi.registerGraph(topLevelNavController, this)
-                navigationProvider.profileApi.registerGraph(topLevelNavController, this)
-            }
         }
     }
 }

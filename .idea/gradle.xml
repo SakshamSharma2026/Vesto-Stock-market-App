@@ -30,7 +30,7 @@
             <option value="$PROJECT_DIR$/feature/stock/data" />
             <option value="$PROJECT_DIR$/feature/stock/domain" />
             <option value="$PROJECT_DIR$/feature/stock/ui" />
-            <option value="$PROJECT_DIR$/utilites" />
+            <option value="$PROJECT_DIR$/utilities" />
           </set>
         </option>
       </GradleProjectSettings>

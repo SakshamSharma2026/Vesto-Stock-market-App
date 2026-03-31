@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WalletDataProviders @Inject constructor(private val walletDao: WalletDao) {
-    fun addMoney(amount: Double) = walletDao.addMoney(WalletEntity(balance = amount))
+    suspend fun addMoney(amount: Double) = walletDao.addMoney(WalletEntity(balance = amount))
     fun getWalletDetails(): Flow<WalletEntity?> = walletDao.getWalletDetails()
 }

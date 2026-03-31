@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
@@ -41,6 +42,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.core.common.bgColor
 import com.core.common.greyColor
+import com.core.common.primaryColor
 import com.feature.stock.ui.R
 import com.feature.stock.ui.components.ActionButtonsSection
 import com.feature.stock.ui.components.AiInsightsCard
@@ -64,6 +66,7 @@ fun StocksScreen(
 
     val stocksState by viewModel.uiState.collectAsStateWithLifecycle()
     val walletBalance by walletViewModel.balance.collectAsStateWithLifecycle()
+    val user by viewModel.userData.collectAsStateWithLifecycle()
 
     Scaffold(
         containerColor = bgColor
@@ -73,10 +76,9 @@ fun StocksScreen(
                 .fillMaxSize()
                 .padding(paddingValues),
             contentPadding = PaddingValues(
-                start = 24.dp,
-                end = 24.dp,
-                top = 24.dp,
-                bottom = 100.dp // Adjusted for standard bottom bar
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 140.dp // Adjusted for floating bottom bar
             )
         ) {
             // Offline Banner
@@ -86,41 +88,41 @@ fun StocksScreen(
                 }
             }
 
-            item(key = "top_bar") { TopBarSection() }
-            item(key = "stories") { StoriesSection() }
-            
-            item(key = "balance_label") {
-                Text(
-                    text = "My Portfolio",
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Black,
-                    letterSpacing = (-0.5).sp,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-            }
-            
+            item(key = "top_bar") { TopBarSection(user = user) }
             item(key = "balance") { BalanceCard(balance = walletBalance) }
             item(key = "actions") { ActionButtonsSection(onAddMoney = onAddMoneyClicked) }
-            
+            item(key = "stories") { StoriesSection() }
+
+
             item(key = "insights_label") {
-                Text(
-                    text = "Market Intelligence",
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Black,
-                    letterSpacing = (-0.5).sp,
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
+                Column(modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)) {
+                    Text(
+                        text = "SENTIMENT ANALYSIS",
+                        fontSize = 11.sp,
+                        letterSpacing = 1.sp,
+                        fontWeight = FontWeight.Black,
+                        color = Color.Gray
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Market Intelligence",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-1).sp,
+                        color = Color.Black
+                    )
+                }
             }
             item(key = "ai_insights") { AiInsightsCard() }
 
             item(key = "stocks_label") {
-                 Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
             }
 
             stocksSection(
                 stocksState = stocksState.stocksSection,
                 onTabSelected = viewModel::onTabSelected,
-                onStockClicked = onStockClicked,
+                onStockClick = onStockClicked,
             )
         }
     }
@@ -129,7 +131,7 @@ fun StocksScreen(
 fun LazyListScope.stocksSection(
     stocksState: StocksSectionUiState,
     onTabSelected: (StockTab) -> Unit,
-    onStockClicked: (String) -> Unit,
+    onStockClick: (String) -> Unit,
 ) {
 
     item(key = "stocks_container") {
@@ -147,13 +149,23 @@ fun LazyListScope.stocksSection(
                 .clip(RoundedCornerShape(14.dp))
         ) {
 
-            Text(
-                text = stringResource(id = R.string.stocks),
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Black,
-                letterSpacing = (-0.5).sp,
-                modifier = Modifier.padding(20.dp)
-            )
+            Column(modifier = Modifier.padding(start = 20.dp, top = 20.dp, bottom = 12.dp)) {
+                Text(
+                    text = "LIVE DATA",
+                    fontSize = 11.sp,
+                    letterSpacing = 1.sp,
+                    fontWeight = FontWeight.Black,
+                    color = primaryColor
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = stringResource(id = R.string.stocks),
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = (-1).sp,
+                    color = Color.Black
+                )
+            }
 
             HorizontalDivider(color = greyColor)
 
@@ -177,35 +189,29 @@ fun LazyListScope.stocksSection(
                 }
 
                 stocksState.selectedTab == StockTab.GAINERS -> {
-                    stocksState.gainers.forEachIndexed { index, stock ->
+                    stocksState.gainers.forEach { stock ->
                         StockItemCard(
-                            index = index + 1,
-                            companyName = stock.companyName,
                             ticker = stock.ticker,
+                            companyName = stock.companyName,
                             priceCurrent = stock.price,
                             percentChange = stock.percentChange.toString(),
                             isGainer = true,
-                            minPrice = stock.low,
                             maxPrice = stock.high,
-                            onClick = { onStockClicked(stock.companyName) },
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            onClick = { onStockClick(stock.companyName) }
                         )
                     }
                 }
 
                 stocksState.selectedTab == StockTab.LOSERS -> {
-                    stocksState.losers.forEachIndexed { index, stock ->
+                    stocksState.losers.forEach { stock ->
                         StockItemCard(
-                            index = index + 1,
-                            companyName = stock.companyName,
                             ticker = stock.ticker,
+                            companyName = stock.companyName,
                             priceCurrent = stock.price,
                             percentChange = stock.percentChange.toString(),
                             isGainer = false,
-                            minPrice = stock.low,
                             maxPrice = stock.high,
-                            onClick = { onStockClicked(stock.companyName) },
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            onClick = { onStockClick(stock.ticker) }
                         )
                     }
                 }
@@ -233,6 +239,7 @@ fun OfflineBanner() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
             .padding(bottom = 16.dp)
             .background(Color(0xFFFFEDEE), RoundedCornerShape(16.dp))
             .padding(12.dp),

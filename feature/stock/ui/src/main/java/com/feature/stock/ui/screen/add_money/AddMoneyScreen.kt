@@ -2,6 +2,7 @@ package com.feature.stock.ui.screen.add_money
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -113,7 +114,7 @@ fun AddMoneyScreen(
             // Premium Balance Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(28.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
@@ -124,29 +125,31 @@ fun AddMoneyScreen(
                     Box(
                         modifier = Modifier
                             .size(52.dp)
-                            .background(primaryColor, CircleShape),
+                            .background(primaryColor.copy(alpha = 0.1f), RoundedCornerShape(16.dp)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.AccountBalanceWallet,
                             contentDescription = null,
-                            tint = Color.Black,
+                            tint = primaryColor,
                             modifier = Modifier.size(24.dp)
                         )
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
                         Text(
-                            text = "Buying Power",
+                            text = "BUYING POWER",
                             color = Color.Gray,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Medium
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = 1.sp
                         )
                         Text(
                             text = "₹${"%.2f".format(balance)}",
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = Color.Black
+                            fontSize = 28.sp,
+                            fontWeight = FontWeight.Black,
+                            color = Color.Black,
+                            letterSpacing = (-1).sp
                         )
                     }
                 }
@@ -160,10 +163,10 @@ fun AddMoneyScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "ENTER AMOUNT",
-                    fontSize = 12.sp,
+                    text = "SPECIFY AMOUNT",
+                    fontSize = 11.sp,
                     letterSpacing = 1.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Black,
                     color = Color.Gray
                 )
 
@@ -222,17 +225,22 @@ fun AddMoneyScreen(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .clip(RoundedCornerShape(16.dp))
+                                .clip(RoundedCornerShape(20.dp))
                                 .background(if (amountInput == valAmount) Color.Black else Color.White)
+                                .border(
+                                    width = 1.dp,
+                                    color = if (amountInput == valAmount) Color.Black else Color(0xFFF0F0F0),
+                                    shape = RoundedCornerShape(20.dp)
+                                )
                                 .clickable { amountInput = valAmount }
-                                .padding(vertical = 12.dp),
+                                .padding(vertical = 14.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = "+₹$valAmount",
                                 color = if (amountInput == valAmount) Color.White else Color.Black,
                                 fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Black
                             )
                         }
                     }
@@ -243,19 +251,19 @@ fun AddMoneyScreen(
 
             // Payment Method Preview
             Text(
-                text = "PAYING FROM",
-                fontSize = 12.sp,
+                text = "PAYMENT SOURCE",
+                fontSize = 11.sp,
                 letterSpacing = 1.sp,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.Black,
                 color = Color.Gray,
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                border = BorderStroke(1.dp, Color(0xFFF0F0F0))
+                border = BorderStroke(1.dp, Color(0xFFF5F5F5))
             ) {
                 Row(
                     modifier = Modifier.padding(16.dp),
@@ -285,32 +293,42 @@ fun AddMoneyScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Premium Action Button
-            ElevatedButton(
-                onClick = {
-                    amountInput.toDoubleOrNull()?.let { amount ->
-                        walletViewModel.addMoney(amount)
-                        onBackClicked()
-                    }
-                },
+            Box(
                 modifier = Modifier
-                    .padding(bottom = 20.dp)
                     .fillMaxWidth()
-                    .height(64.dp),
-                enabled = isValidAmount,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White,
-                    disabledContainerColor = Color.LightGray.copy(alpha = 0.3f),
-                    disabledContentColor = Color.Gray
-                ),
-                shape = RoundedCornerShape(32.dp),
+                    .padding(bottom = 32.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = if (isValidAmount) "Add ₹$amountInput to Wallet" else "Enter Amount",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Black
-                )
+                ElevatedButton(
+                    onClick = {
+                        amountInput.toDoubleOrNull()?.let { amount ->
+                            walletViewModel.addMoney(amount)
+                            onBackClicked()
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp),
+                    enabled = isValidAmount,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Black,
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.LightGray.copy(alpha = 0.2f),
+                        disabledContentColor = Color.Gray
+                    ),
+                    shape = RoundedCornerShape(32.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(
+                        defaultElevation = 0.dp,
+                        pressedElevation = 0.dp
+                    )
+                ) {
+                    Text(
+                        text = if (isValidAmount) "Add ₹$amountInput to Wallet" else "Deposit Funds",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 0.5.sp
+                    )
+                }
             }
         }
     }

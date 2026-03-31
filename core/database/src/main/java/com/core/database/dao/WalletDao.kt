@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface WalletDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addMoney(wallet: WalletEntity)
+    suspend fun addMoney(wallet: WalletEntity)
 
 
     @Query("SELECT * FROM wallet_table WHERE id = 1")

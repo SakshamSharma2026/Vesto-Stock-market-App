@@ -39,9 +39,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:auth:domain"))
     implementation(project(":core:feature_api"))
     implementation(project(":core:common"))
     implementation(project(":core:network"))
+    implementation(libs.coil.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

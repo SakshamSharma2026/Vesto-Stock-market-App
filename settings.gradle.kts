@@ -24,7 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Vesto"
 include(":app")
-include(":utilites")
+include(":utilities")
 include(":feature:stock:data")
 include(":feature:stock:domain")
 include(":feature:stock:ui")
@@ -32,7 +32,6 @@ include(":feature:news:data")
 include(":core:common")
 include(":core:feature_api")
 include(":core:network")
-include(":core:database")
 include(":core:database")
 include(":feature:news:ui")
 include(":feature:news:domain")

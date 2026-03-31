@@ -44,36 +44,45 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
+import com.core.common.User
 import com.core.common.accentGreen
 import com.core.common.bgColor
 import com.core.common.primaryColor
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel,
+    onLogout: () -> Unit = {}
+) {
+    val user by viewModel.userData.collectAsStateWithLifecycle()
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = bgColor,
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text(
-                        text = "My Profile", 
-                        fontWeight = FontWeight.Bold, 
-                        fontSize = 20.sp,
+                        text = "Profile",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = (-1).sp,
                         color = Color.Black
-                    ) 
+                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = bgColor
@@ -95,11 +104,11 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp)
+            contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 8.dp, bottom = 140.dp)
         ) {
             // Profile Header
             item {
-                ProfileHeaderSection()
+                ProfileHeaderSection(user = user)
                 Spacer(modifier = Modifier.height(32.dp))
             }
 
@@ -136,7 +145,10 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         subtitle = "Manage name, email, phone",
                         isFirst = true
                     )
-                    HorizontalDivider(color = Color(0xFFF0F0F0), modifier = Modifier.padding(horizontal = 24.dp))
+                    HorizontalDivider(
+                        color = Color(0xFFF0F0F0),
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
                     ProfileOptionItem(
                         icon = Icons.Outlined.AccountBalanceWallet,
                         title = "Linked Banks",
@@ -155,7 +167,10 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         subtitle = "TouchID, PIN protection",
                         isFirst = true
                     )
-                    HorizontalDivider(color = Color(0xFFF0F0F0), modifier = Modifier.padding(horizontal = 24.dp))
+                    HorizontalDivider(
+                        color = Color(0xFFF0F0F0),
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
                     ProfileOptionItem(
                         icon = Icons.Outlined.NotificationsActive,
                         title = "Notification Setup",
@@ -174,7 +189,10 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                         subtitle = "24/7 Priority support",
                         isFirst = true
                     )
-                    HorizontalDivider(color = Color(0xFFF0F0F0), modifier = Modifier.padding(horizontal = 24.dp))
+                    HorizontalDivider(
+                        color = Color(0xFFF0F0F0),
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
                     ProfileOptionItem(
                         icon = Icons.Outlined.Share,
                         title = "Invite Friends",
@@ -187,22 +205,29 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
 
             // Logout Section
             item {
-                LogoutButton()
+                LogoutButton(onLogoutClick = {
+                    viewModel.logout()
+                    onLogout()
+                })
                 Spacer(modifier = Modifier.height(40.dp))
-                
+
                 Text(
                     text = "Vesto v1.4.2",
                     color = Color.Gray.copy(alpha = 0.6f),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
                 )
+                Spacer(modifier = Modifier.height(40.dp))
             }
         }
     }
 }
 
 @Composable
-fun ProfileHeaderSection(modifier: Modifier = Modifier) {
+fun ProfileHeaderSection(
+    user: User?,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxWidth()
@@ -229,17 +254,19 @@ fun ProfileHeaderSection(modifier: Modifier = Modifier) {
                         .padding(4.dp)
                 ) {
                     // Profile Image
-//                    Image(
-//                        painter = painterResource(id = R.drawable.user_icon),
-//                        contentDescription = "User Photo",
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .clip(CircleShape),
-//                        contentScale = ContentScale.Crop
-//                    )
+                    AsyncImage(
+                        model = user?.profilePicUrl,
+                        contentDescription = "User Photo",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop,
+                        placeholder = null,
+                        error = null // Or a default icon
+                    )
                 }
             }
-            
+
             // Edit Badge
             Box(
                 modifier = Modifier
@@ -264,7 +291,7 @@ fun ProfileHeaderSection(modifier: Modifier = Modifier) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = "Saksham Sharma",
+                text = user?.name ?: "Guest User",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Black,
                 color = Color.Black,
@@ -278,11 +305,11 @@ fun ProfileHeaderSection(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(20.dp)
             )
         }
-        
+
         Spacer(modifier = Modifier.height(4.dp))
-        
+
         Text(
-            text = "@saksham_sharma",
+            text = "${user?.email}",
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray.copy(alpha = 0.8f)
@@ -392,9 +419,9 @@ fun ProfileOptionItem(
                 modifier = Modifier.size(20.dp)
             )
         }
-        
+
         Spacer(modifier = Modifier.width(16.dp))
-        
+
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
@@ -421,7 +448,10 @@ fun ProfileOptionItem(
 }
 
 @Composable
-fun LogoutButton(modifier: Modifier = Modifier) {
+fun LogoutButton(
+    onLogoutClick: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     Card(
         shape = RoundedCornerShape(32.dp),
         colors = CardDefaults.cardColors(containerColor = Color(0xFFFFEDEE)),
@@ -430,7 +460,7 @@ fun LogoutButton(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .height(64.dp)
             .clip(RoundedCornerShape(32.dp))
-            .clickable { /* Handle Logout */ }
+            .clickable { onLogoutClick() }
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

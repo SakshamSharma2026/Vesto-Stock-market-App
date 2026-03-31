@@ -52,7 +52,7 @@ The project is divided into clearly defined layers and independent modules:
   - `...:data`: Repository implementations, remote endpoints, and network/local DTOs.
   - `...:domain`: Pure Kotlin business logic, Use Cases, domain models, and repository contracts. Fully abstracted from Android UI/Data dependencies.
   - `...:ui`: Jetpack Compose screens, ViewModels, and UI-specific State/Event handling.
-- **`:utilites`**: High-level shared components used app-wide.
+- **`:utilities`**: High-level shared components used app-wide.
 
 ### 🛡 Data Flow & Modeling Strategy
 To prevent leaky abstractions, the architecture enforces strict boundary crossing:

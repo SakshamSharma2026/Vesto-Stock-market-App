@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class WalletRepositoryImpl @Inject constructor(private val walletDataProviders: WalletDataProviders) :
     WalletRepository {
-    override fun addMoney(amount: Double) {
+    override suspend fun addMoney(amount: Double) {
         walletDataProviders.addMoney(amount)
     }
 

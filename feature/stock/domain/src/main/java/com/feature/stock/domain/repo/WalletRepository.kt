@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WalletRepository {
 
-    fun addMoney(amount: Double)
+    suspend fun addMoney(amount: Double)
 
     fun getWalletDetails(): Flow<WalletEntity?>
 

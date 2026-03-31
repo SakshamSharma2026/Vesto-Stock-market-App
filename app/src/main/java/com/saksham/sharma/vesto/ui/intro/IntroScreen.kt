@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,25 +30,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.core.common.primaryColor
 import com.feature.stock.ui.components.SystemBarStyle
 import com.feature.stock.ui.components.companyList1
 import com.feature.stock.ui.components.companyList2
 import com.feature.stock.ui.components.companyList3
 import com.feature.stock.ui.model.Company
-import com.core.common.BorderLightGray
-import com.core.common.ButtonDark
-import com.saksham.sharma.vesto.R
 
 
 @Preview(showBackground = true)
@@ -94,20 +90,24 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
                         .padding(start = 16.dp, end = 16.dp, top = 40.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.intro_top_app_investment),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black.copy(alpha = 0.6f),
-                        letterSpacing = 1.sp
+                        text = "THE NEW STANDARD",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Black,
+                        color = primaryColor,
+                        letterSpacing = 2.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = stringResource(id = R.string.intro_invest_your_money),
-                        fontSize = 68.sp,
+                        text = "The Future\nOf Wealth",
+                        fontSize = 72.sp,
                         fontWeight = FontWeight.Black,
-                        lineHeight = 62.sp,
-                        color = Color.Black,
-                        letterSpacing = (-1.5).sp
+                        lineHeight = 64.sp,
+                        style = TextStyle(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color.Black, primaryColor)
+                            )
+                        ),
+                        letterSpacing = (-2).sp
                     )
                 }
             }
@@ -118,15 +118,15 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(64.dp)
-                    .padding(horizontal = 24.dp), // Following standard mobile padding
+                    .padding(horizontal = 24.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = ButtonDark
+                    containerColor = Color.Black
                 ),
                 shape = RoundedCornerShape(32.dp),
-                elevation = null // Explicitly keeping it flat for modern look
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.intro_get_started),
+                    text = "Get Started",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -208,23 +208,25 @@ fun CompanyCard(company: Company) {
         Box(
             modifier = Modifier
                 .size(60.dp)
-                .background(Color.Transparent, CircleShape)
-                .border(1.dp, BorderLightGray, CircleShape),
+                .background(Color.White, CircleShape)
+                .border(2.dp, Color(0xFFF5F5F5), CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(company.iconPath),
-                contentDescription = "${company.name} logo", // Accessibility fix
-                modifier = Modifier.size(40.dp))
+                contentDescription = "${company.name} logo",
+                modifier = Modifier.size(32.dp)
+            )
 
         }
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Column {
             Text(
                 text = company.name,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Black,
+                letterSpacing = (-0.5).sp
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(

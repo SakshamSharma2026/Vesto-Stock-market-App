@@ -212,12 +212,13 @@ fun TopBarSection(
             Text(
                 text = name,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Black
+                fontWeight = FontWeight.Black,
+                color = Color.Black,
+                letterSpacing = (-0.5).sp
             )
             if (ticker.isNotEmpty()) {
                 Text(
-                    text = ticker,
+                    text = ticker.split(".")[0],
                     fontSize = 12.sp,
                     color = greyColor
                 )
@@ -270,7 +271,7 @@ fun PriceCardSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .background(Color.White, RoundedCornerShape(16.dp))
+            .background(Color.White, RoundedCornerShape(24.dp))
             .padding(24.dp)
     ) {
         Row(verticalAlignment = Alignment.Bottom) {
@@ -530,9 +531,18 @@ fun MarketDetails(data: com.feature.stock.domain.model.StockDetailsData) {
     ) {
         Text(
             text = stringResource(id = R.string.performance_and_ratios),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
+            fontSize = 12.sp,
+            letterSpacing = 1.sp,
+            fontWeight = FontWeight.Black,
+            color = Color.Gray
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Market Stats",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Black,
+            color = Color.Black,
+            letterSpacing = (-1).sp
         )
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -595,7 +605,7 @@ fun ImprovedStatBox(
 ) {
     Box(
         modifier = modifier
-            .background(accentColor.copy(alpha = 0.08f), RoundedCornerShape(16.dp))
+            .background(accentColor.copy(alpha = 0.08f), RoundedCornerShape(20.dp))
             .padding(16.dp)
     ) {
         Column {
@@ -612,15 +622,26 @@ fun MarketStatsSection(data: com.feature.stock.domain.model.StockDetailsData) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .background(Color.White, RoundedCornerShape(16.dp))
+            .background(Color.White, RoundedCornerShape(24.dp))
             .padding(20.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.historical_stats),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        Column(modifier = Modifier.padding(top = 8.dp, bottom = 12.dp)) {
+            Text(
+                text = stringResource(id = R.string.historical_stats),
+                fontSize = 11.sp,
+                letterSpacing = 1.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "History",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = (-1).sp,
+                color = Color.Black
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         Row(modifier = Modifier.fillMaxWidth()) {
             StatItem(stringResource(id = R.string.fifty_two_w_high), "₹${data.yearHigh}", Modifier.weight(1f))
@@ -663,15 +684,26 @@ fun AboutCompanySection(description: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .background(Color.White, RoundedCornerShape(16.dp)) // Refined corners
+            .background(Color.White, RoundedCornerShape(24.dp)) // Refined corners
             .padding(24.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.about_company),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        Column(modifier = Modifier.padding(top = 8.dp, bottom = 12.dp)) {
+            Text(
+                text = stringResource(id = R.string.about_company),
+                fontSize = 11.sp,
+                letterSpacing = 1.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Intelligence", // Abstracted title for premium feel
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = (-1).sp,
+                color = Color.Black
+            )
+        }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = description,
@@ -700,17 +732,28 @@ fun NewsSection(newsList: List<com.feature.stock.domain.model.StockNews>) {
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.recent_news),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        Column(modifier = Modifier.padding(top = 8.dp, bottom = 12.dp)) {
+            Text(
+                text = stringResource(id = R.string.recent_news),
+                fontSize = 11.sp,
+                letterSpacing = 1.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Market Press",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = (-1).sp,
+                color = Color.Black
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         newsList.take(3).forEach { news ->
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
                 Row(
@@ -744,7 +787,7 @@ fun AnalystSentimentSection(recos: com.feature.stock.domain.model.AnalystSentime
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .background(Color.White, RoundedCornerShape(16.dp))
+            .background(Color.White, RoundedCornerShape(24.dp))
             .padding(20.dp)
     ) {
         Row(
@@ -752,17 +795,21 @@ fun AnalystSentimentSection(recos: com.feature.stock.domain.model.AnalystSentime
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
+            Column(modifier = Modifier.padding(top = 0.dp, bottom = 12.dp)) {
                 Text(
                     text = stringResource(id = R.string.analyst_sentiment),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    fontSize = 11.sp,
+                    letterSpacing = 1.sp,
+                    fontWeight = FontWeight.Black,
+                    color = Color.Gray
                 )
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Based on $totalAnalysts analysts",
-                    fontSize = 12.sp,
-                    color = greyColor
+                    text = "Consensus",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = (-1).sp,
+                    color = Color.Black
                 )
             }
 
@@ -847,15 +894,26 @@ fun ShareholdingSection(holdings: List<com.feature.stock.domain.model.Shareholdi
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
-            .background(Color.White, RoundedCornerShape(16.dp))
+            .background(Color.White, RoundedCornerShape(24.dp))
             .padding(20.dp)
     ) {
-        Text(
-            text = "Shareholding Pattern",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black
-        )
+        Column(modifier = Modifier.padding(top = 8.dp, bottom = 12.dp)) {
+            Text(
+                text = "SHAREHOLDING PATTERN",
+                fontSize = 11.sp,
+                letterSpacing = 1.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Structure",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = (-1).sp,
+                color = Color.Black
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         holdings.forEachIndexed { index, holding ->
@@ -882,39 +940,58 @@ fun ShareholdingSection(holdings: List<com.feature.stock.domain.model.Shareholdi
 
 @Composable
 fun BuySellBar() {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
-            .padding(horizontal = 24.dp, vertical = 20.dp),
-        horizontalArrangement = Arrangement.Center
+            .padding(bottom = 32.dp, start = 24.dp, end = 24.dp),
+        contentAlignment = Alignment.Center
     ) {
-        // Sell Button
-        Box(
+        Row(
             modifier = Modifier
-                .weight(1f)
-                .height(64.dp)
-                .clip(RoundedCornerShape(32.dp))
-                .background(Color(0xFFFFEDEE))
-                .clickable { /* Sell logic */ },
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .background(Color.Black, RoundedCornerShape(32.dp))
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Text("SELL", color = Color(0xFFD32F2F), fontWeight = FontWeight.Black, fontSize = 16.sp, letterSpacing = 1.sp)
-        }
+            // Sell Button
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(28.dp))
+                    .background(Color.White.copy(alpha = 0.15f))
+                    .clickable { /* Sell logic */ },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "SELL",
+                    color = Color.White,
+                    fontWeight = FontWeight.Black,
+                    fontSize = 14.sp,
+                    letterSpacing = 1.sp
+                )
+            }
 
-        Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
-        // Buy Button
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(64.dp)
-                .clip(RoundedCornerShape(32.dp))
-                .background(Color(0xFF1E8E42))
-                .clickable { /* Buy logic */ },
-            contentAlignment = Alignment.Center
-        ) {
-            Text("BUY", color = Color.White, fontWeight = FontWeight.Black, fontSize = 16.sp, letterSpacing = 1.sp)
+            // Buy Button
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(28.dp))
+                    .background(ProfitGreen)
+                    .clickable { /* Buy logic */ },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "BUY",
+                    color = Color.White,
+                    fontWeight = FontWeight.Black,
+                    fontSize = 14.sp,
+                    letterSpacing = 1.sp
+                )
+            }
         }
     }
 }
@@ -971,7 +1048,7 @@ fun StockDetailsSkeleton() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
-                .background(Color.White, RoundedCornerShape(16.dp))
+                .background(Color.White, RoundedCornerShape(24.dp))
                 .padding(24.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {

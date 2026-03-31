@@ -1,26 +1,28 @@
 package com.core.database.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.core.database.AppDatabase
+import com.core.database.dao.UserDao
+import com.core.database.dao.WalletDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DatabaseModule {
+object DatabaseModule {
 
 
     @Singleton
     @Provides
-    fun provideDatabase(application: Application): AppDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
-            application,
+            context,
             AppDatabase::class.java,
             "app_database"
         ).fallbackToDestructiveMigration()
@@ -30,5 +32,10 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideWalletDao(database: AppDatabase) = database.walletDao()
+    fun provideWalletDao(database: AppDatabase): WalletDao = database.walletDao()
+
+
+    @Singleton
+    @Provides
+    fun provideUserDao(database: AppDatabase): UserDao = database.userDao()
 }
