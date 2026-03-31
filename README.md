@@ -6,16 +6,16 @@
   <img src="https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" alt="Android Studio" />
   <img src="https://img.shields.io/badge/Jetpack%20Compose-4285F4.svg?style=for-the-badge&logo=Jetpack-Compose&logoColor=white" alt="Jetpack Compose" />
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
   <img src="https://img.shields.io/badge/API-36%2B-brightgreen.svg?style=for-the-badge&logo=android" alt="API" />
-  <img src="https://img.shields.io/badge/Architecture-Clean%20%7C%20MVVM-orange.svg?style=for-the-badge" alt="MVVM" />
 </p>
 
-*A beautifully crafted, feature-rich Android stock market application built entirely with Kotlin and Jetpack Compose. Track real-time prices, analyze deeply with interactive charts, and stay ahead of the curve!*
+*A high-end, editorial-style Android investment platform built for the modern investor. Vesto combines deep financial analytics with a premium, Gen-Z focused aesthetic.*
 
 [Features](#-key-features) •
 [Tech Stack](#-tech-stack-and-architecture) •
 [Getting Started](#-getting-started) •
-[Screenshots](#-screenshots)
+[Visual Showcase](#-visual-showcase)
 
 </div>
 
@@ -25,101 +25,90 @@
 
 | Feature | Description |
 | :--- | :--- |
-| **📉 Dynamic Interactive Charts** | Explore stock trends with deep scrubbing, dynamic price indicators, and smooth line interpolation for a fluid experience. |
-| **📊 Comprehensive Stock Info** | Dedicated screens for detailed fetching of live data, company descriptions, and vital financial metrics. |
-| **🏆 Market Movers** | Instantly discover the day’s top gainers and losers using intuitively sorted market tabs. |
-| **🚀 Optimized Performance** | Built with rendering efficiency in mind, managing recomposition natively to ensure butter-smooth scrolling. |
-| **📱 Edge-to-Edge UI** | Dynamic system bar adaptations and modern overlays that look gorgeous on any modern Android device. |
-| **📡 Robust Error Handling** | Seamless transitions between loading, success, and offline error states throughout the app lifecycle. |
+| **🎨 Premium Gen-Z UI** | A stunning editorial design system featuring 24dp radii, high-contrast typography, and deep glassmorphic effects. |
+| **🔒 Secure Authentication** | One-tap Google Sign-In integration with Firebase backend for a frictionless and secure onboarding experience. |
+| **📉 Interactive Analytics** | High-precision stock charts with scrubbable indicators and smooth interpolation for deep market analysis. |
+| **📰 Contextual News** | Integrated real-time financial news feed tailored to your watchlist and market trends. |
+| **🏆 Market Movers** | Discover top gainers and losers with an intuitively sorted dashboard. |
+| **📱 Edge-to-Edge Experience** | Fully immersive UI that respects system bars and provides a modern, premium feel. |
+
+---
+
+## 🖼️ Visual Showcase
+
+<div align="center">
+  <p align="center">
+    <img src="assets/login_ui.webp" width="220" alt="Authentication" style="border-radius: 24px; margin: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);"/>
+    <img src="assets/home_ui.webp" width="220" alt="Dashboard" style="border-radius: 24px; margin: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);"/>
+    <img src="assets/profile_ui.webp" width="220" alt="Profile" style="border-radius: 24px; margin: 10px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);"/>
+  </p>
+  <i>Experience a seamless, fast, and secure investment journey with our premium UI.</i>
+</div>
 
 ---
 
 ## 🛠️ Tech Stack and Architecture
 
-Vesto is built with a highly scalable, robust **Multi-Module Architecture** based on **Clean Architecture** principles and the **MVVM** pattern. This structure ensures a strict separation of concerns, improves build times, and enables feature isolation, making the codebase highly maintainable and testable as it grows.
+Vesto follows **Clean Architecture** principles and the **MVVM** pattern, organized within a robust **Multi-Module** structure. This ensures scalability, testability, and clear separation of concerns.
 
 ### 🏗️ Module Structure
 
-The project is divided into clearly defined layers and independent modules:
-
-- **`:app`**: The application's entry point, handling dependency injection wiring, global navigation, and core application-level configurations.
-- **`:core`**: Contains foundational modules meant to be shared across the entire application.
-  - `:core:common`: Shared utilities, extensions, and constants.
-  - `:core:feature_api`: Navigation interfaces representing contracts between features.
-  - `:core:network`: Centralized networking infrastructure (Retrofit setup, OkHttp interceptors).
-  - `:core:database`: Local persistence setup.
-- **`:feature`**: Houses isolated business features. Features (like `stock`) are further decomposed into layer modules to strictly enforce Clean Architecture:
-  - `...:data`: Repository implementations, remote endpoints, and network/local DTOs.
-  - `...:domain`: Pure Kotlin business logic, Use Cases, domain models, and repository contracts. Fully abstracted from Android UI/Data dependencies.
-  - `...:ui`: Jetpack Compose screens, ViewModels, and UI-specific State/Event handling.
-- **`:utilities`**: High-level shared components used app-wide.
-
-### 🛡 Data Flow & Modeling Strategy
-To prevent leaky abstractions, the architecture enforces strict boundary crossing:
-- **DTOs (Data Transfer Objects)** map raw network/database structures in the Data layer.
-- **Domain Models** represent pristine business data required for domain logic.
-- **UI States** represent exactly what should be rendered on screen.
-- **Mappers** are used to safely bridge and transform these representations between the Data, Domain, and UI layers.
+- **`:app`**: Entry point, Hilt dependency graph, and global navigation logic.
+- **`:core`**: Foundations shared across the app.
+  - `:core:common`: Shared utilities and design tokens.
+  - `:core:network`: Centralized Retrofit & OkHttp infrastructure.
+  - `:core:database`: Local persistence using Room.
+  - `:core:feature_api`: Navigation contracts between features.
+- **`:feature`**: Independent business modules (e.g., `auth`, `stock`, `news`).
+  - `...:data`: Repository implementations and DTOs.
+  - `...:domain`: Business logic, Use Cases, and repository interfaces.
+  - `...:ui`: Compose screens and ViewModels.
+- **`:utilities`**: Application-wide helper components.
 
 ### Core Technologies
-- **[Kotlin](https://kotlinlang.org/)**: 100% Kotlin implementation for expressive, concise, and safe code.
-- **[Jetpack Compose](https://developer.android.com/jetpack/compose)**: Modern declarative, reactive Native UI toolkit.
-- **[Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html)**: For managing background threads and asynchronous sequences.
-
-### Libraries & Frameworks
-- **[Dagger Hilt](https://dagger.dev/hilt/)**: Robust and scalable dependency injection.
-- **[Retrofit2](https://square.github.io/retrofit/) & [OkHttp3](https://square.github.io/okhttp/)**: Lightning-fast and reliable network calls, interceptors, and logging.
-- **[Gson](https://github.com/google/gson)**: Seamless JSON parsing and serialization.
-- **[Splash Screen API](https://developer.android.com/develop/ui/views/launch/splash-screen)**: Seamless Native Android starting experience.
+- **[Jetpack Compose](https://developer.android.com/jetpack/compose)**: Modern declarative UI toolkit.
+- **[Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html)**: Asynchronous programming and reactive streams.
+- **[Google Auth](https://developers.google.com/identity/sign-in/android)**: Seamless one-tap authentication.
+- **[Firebase](https://firebase.google.com/)**: Backend services for authentication and real-time data.
 
 ---
 
 ## 🚀 Getting Started
 
-To build, test, and run Vesto locally, follow the steps below.
+Follow these steps to set up the development environment.
 
 ### 📋 Prerequisites
-- **Android Studio** (Koala or newer Recommended)
-- **JDK 11+**
+- **Android Studio** (Ladybug or newer)
+- **JDK 17+**
 - **Android SDK** (Target API 36)
 
-### ⚙️ Setup Instructions
+### ⚙️ Configuration
 
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/SakshamSharma2026/Vesto-Stock-market-App.git
    ```
 
-2. **Supply your API Credentials**
-   This application utilizes a financial API and requires an access key to fetch genuine stock data.
-   
-   Create a `secret.properties` file in the **root** of the project (`app/../secret.properties`) to safely supply your configuration:
+2. **Supply API Credentials**
+   Create a `secret.properties` file in the **root directory** with your credentials:
    
    ```properties
    BASE_URL="https://your.api.baseurl.com/"
-   API_KEY="your_api_key_here"
+   API_KEY="your_api_key"
+   GOOGLE_CLIENT_ID="your_google_id.apps.googleusercontent.com"
    ```
 
-3. **Build & Run**
-   Sync your Gradle files and run the `app` target onto an emulator or physical device running **API 33** or higher.
+3. **Firebase Setup**
+   Place your `google-services.json` in the `app/` directory.
 
----
-
-## 📷 Screenshots
-
-<div align="center">
-
-| Home Screen | Stock Details | News & Analysis |
-|:---:|:---:|:---:|
-| <img src="https://via.placeholder.com/250x500.png?text=Home+Screen" width="250"/> | <img src="https://via.placeholder.com/250x500.png?text=Stock+Details" width="250"/> | <img src="https://via.placeholder.com/250x500.png?text=News+Analysis" width="250"/> |
-
-</div>
+4. **Build & Run**
+   Sync Gradle and run the `app` target.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions, bug reports, and feature requests are very welcome! If you have an idea to improve the application, feel free to open a pull request or submit an issue.
+Contributions are welcome! Whether it's adding features, fixing bugs, or improving documentation.
 
 <div align="center">
   
