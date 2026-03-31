@@ -16,15 +16,19 @@ retrofit = "2.9.0"
 gsonConvertor = "2.9.0"
 okHttp = "4.9.0"
 hilt = "2.59.1"
-roomVersion = "2.4.3"
+roomVersion = "2.8.4"
 ksp = "2.3.5"
 appcompat = "1.7.1"
 material3= "1.5.0-alpha15"
 splashScreen = "1.2.0"
 material = "1.13.0"
+coilCompose = "2.6.0"
+playServicesAuth = "21.5.1"
+firebaseBom = "34.10.0"
 
 
 [libraries]
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,11 +53,15 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConvertor" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttp" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
-
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-bom = { module = "com.google.firebase:firebase-bom",version.ref = "firebaseBom" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

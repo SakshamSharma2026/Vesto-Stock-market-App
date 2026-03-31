@@ -16,11 +16,21 @@
             <option value="$PROJECT_DIR$/core/feature_api" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/auth" />
+            <option value="$PROJECT_DIR$/feature/auth/data" />
+            <option value="$PROJECT_DIR$/feature/auth/domain" />
+            <option value="$PROJECT_DIR$/feature/auth/ui" />
+            <option value="$PROJECT_DIR$/feature/news" />
+            <option value="$PROJECT_DIR$/feature/news/data" />
+            <option value="$PROJECT_DIR$/feature/news/domain" />
+            <option value="$PROJECT_DIR$/feature/news/ui" />
+            <option value="$PROJECT_DIR$/feature/profile" />
+            <option value="$PROJECT_DIR$/feature/profile/ui" />
             <option value="$PROJECT_DIR$/feature/stock" />
             <option value="$PROJECT_DIR$/feature/stock/data" />
             <option value="$PROJECT_DIR$/feature/stock/domain" />
             <option value="$PROJECT_DIR$/feature/stock/ui" />
-            <option value="$PROJECT_DIR$/utilites" />
+            <option value="$PROJECT_DIR$/utilities" />
           </set>
         </option>
       </GradleProjectSettings>

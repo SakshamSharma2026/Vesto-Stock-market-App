@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -39,4 +41,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx) // For Kotlin extensions and coroutine support
+    ksp(libs.androidx.room.compiler)
 }

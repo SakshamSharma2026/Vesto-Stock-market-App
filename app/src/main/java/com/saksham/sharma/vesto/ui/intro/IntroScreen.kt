@@ -22,8 +22,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,23 +31,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.core.common.primaryColor
 import com.feature.stock.ui.components.SystemBarStyle
 import com.feature.stock.ui.components.companyList1
 import com.feature.stock.ui.components.companyList2
 import com.feature.stock.ui.components.companyList3
 import com.feature.stock.ui.model.Company
-import com.feature.stock.ui.screen.ui.theme.BorderLightGray
-import com.feature.stock.ui.screen.ui.theme.ButtonDark
-import com.saksham.sharma.vesto.R
 
 
 @Preview(showBackground = true)
@@ -69,7 +68,7 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp, bottom = 30.dp),
+                .padding(top = 80.dp, bottom = 32.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             // Marquee Top Section
@@ -83,7 +82,7 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
                 MarqueeRow(items = companyList2, durationMillis = 18000, isReverse = true)
                 Spacer(modifier = Modifier.height(24.dp))
                 MarqueeRow(items = companyList3, durationMillis = 16000, isReverse = false)
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
                 Column(
                     modifier = Modifier
@@ -91,40 +90,46 @@ fun IntroScreen(modifier: Modifier = Modifier, onPrimaryBtnClicked: () -> Unit) 
                         .padding(start = 16.dp, end = 16.dp, top = 40.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.intro_top_app_investment),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black.copy(alpha = 0.6f),
-                        letterSpacing = 1.sp
+                        text = "THE NEW STANDARD",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Black,
+                        color = primaryColor,
+                        letterSpacing = 2.sp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = stringResource(id = R.string.intro_invest_your_money),
-                        fontSize = 68.sp,
-                        fontWeight = FontWeight.Normal,
-                        lineHeight = 72.sp,
-                        color = Color.Black,
-                        letterSpacing = (-1).sp
+                        text = "The Future\nOf Wealth",
+                        fontSize = 72.sp,
+                        fontWeight = FontWeight.Black,
+                        lineHeight = 64.sp,
+                        style = TextStyle(
+                            brush = Brush.linearGradient(
+                                colors = listOf(Color.Black, primaryColor)
+                            )
+                        ),
+                        letterSpacing = (-2).sp
                     )
                 }
             }
 
             // Bottom Texts
-            ElevatedButton(
+            Button(
                 onClick = { onPrimaryBtnClicked() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(64.dp)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 24.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = ButtonDark
+                    containerColor = Color.Black
                 ),
-                shape = RoundedCornerShape(32.dp)
+                shape = RoundedCornerShape(32.dp),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.intro_get_started),
+                    text = "Get Started",
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp
                 )
             }
         }
@@ -203,29 +208,31 @@ fun CompanyCard(company: Company) {
         Box(
             modifier = Modifier
                 .size(60.dp)
-                .background(Color.Transparent, CircleShape)
-                .border(1.dp, BorderLightGray, CircleShape),
+                .background(Color.White, CircleShape)
+                .border(2.dp, Color(0xFFF5F5F5), CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(company.iconPath),
-                contentDescription = null,
-                modifier = Modifier.size(40.dp)
+                contentDescription = "${company.name} logo",
+                modifier = Modifier.size(32.dp)
             )
+
         }
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Column {
             Text(
                 text = company.name,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.Black
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Black,
+                color = Color.Black,
+                letterSpacing = (-0.5).sp
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = company.ticker,
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Medium,
                 color = Color.Gray
             )
         }

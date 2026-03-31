@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -16,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.saksham.sharma.sagney"
+        applicationId = "com.saksham.sharma.vesto"
         minSdk = 33
         targetSdk = 36
         versionCode = 1
@@ -61,12 +62,20 @@ android {
 }
 
 dependencies {
-    implementation(project(":utilites"))
+    implementation(project(":utilities"))
+    implementation(project(":core:common"))
+    implementation(project(":core:feature_api"))
     implementation(project(":feature:stock:data"))
     implementation(project(":feature:stock:domain"))
     implementation(project(":feature:stock:ui"))
-    implementation(project(":core:common"))
-    implementation(project(":core:feature_api"))
+    implementation(project(":feature:news:data"))
+    implementation(project(":feature:news:domain"))
+    implementation(project(":feature:news:ui"))
+    implementation(project(":feature:profile:ui"))
+    implementation(project(":feature:auth:data"))
+    implementation(project(":feature:auth:domain"))
+    implementation(project(":feature:auth:ui"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -93,5 +102,6 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
 }

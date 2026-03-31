@@ -9,7 +9,7 @@ data class StockItem(
     val high: String
 )
 
-data class IndianStockData(
+data class StockData(
     val gainers: List<StockItem>,
     val losers: List<StockItem>
 )

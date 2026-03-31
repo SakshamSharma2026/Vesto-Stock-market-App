@@ -1,5 +1,8 @@
 package com.saksham.sharma.vesto.di
 
+import com.feature.auth.ui.navigation.AuthApi
+import com.feature.news.ui.navigation.NewsApi
+import com.feature.profile.ui.navigation.ProfileApi
 import com.feature.stock.ui.navigation.StockApi
 import com.saksham.sharma.vesto.navigation.NavigationProvider
 import dagger.Module
@@ -16,7 +19,10 @@ class AppModule {
     @Singleton
     fun provideNavigationProvider(
         stockApi: StockApi,
+        newsApi: NewsApi,
+        profileApi: ProfileApi,
+        authApi: AuthApi
     ): NavigationProvider {
-        return NavigationProvider(stockApi)
+        return NavigationProvider(stockApi, newsApi, profileApi, authApi)
     }
 }
