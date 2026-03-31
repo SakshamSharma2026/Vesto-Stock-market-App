@@ -369,7 +369,7 @@ fun ProfileSettingsGroup(
         )
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
         ) {
@@ -390,11 +390,10 @@ fun ProfileOptionItem(
     isLast: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    // Determine bounds for ripple clipping based on position in the group
     val shape = when {
-        isFirst && isLast -> RoundedCornerShape(16.dp)
-        isFirst -> RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
-        isLast -> RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
+        isFirst && isLast -> RoundedCornerShape(24.dp)
+        isFirst -> RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+        isLast -> RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
         else -> RoundedCornerShape(0.dp)
     }
 

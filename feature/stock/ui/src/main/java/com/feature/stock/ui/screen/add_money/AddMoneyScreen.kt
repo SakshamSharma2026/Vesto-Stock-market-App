@@ -325,8 +325,9 @@ fun AddMoneyScreen(
                     Text(
                         text = if (isValidAmount) "Add ₹$amountInput to Wallet" else "Deposit Funds",
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Black,
-                        letterSpacing = 0.5.sp
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        letterSpacing = 0.sp
                     )
                 }
             }

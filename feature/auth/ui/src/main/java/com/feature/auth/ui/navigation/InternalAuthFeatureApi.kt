@@ -27,16 +27,24 @@ internal object InternalAuthFeatureApi : FeatureApi {
             composable(AuthFeature.AUTH_NESTED_ROUTE) {
                 val viewModel: AuthViewModel = hiltViewModel()
                 val authState by viewModel.authState.collectAsState()
+                val context = androidx.compose.ui.platform.LocalContext.current
 
                 LaunchedEffect(authState) {
-                    if (authState is AuthState.Success) {
-                        navController.navigate(MainFeature.MAIN_SCREEN_ROUTE) {
-                            popUpTo(AuthFeature.AUTH_SCREEN_ROUTE) { inclusive = true }
+                    when (authState) {
+                        is AuthState.Success -> {
+                            navController.navigate(MainFeature.MAIN_SCREEN_ROUTE) {
+                                popUpTo(AuthFeature.AUTH_SCREEN_ROUTE) { inclusive = true }
+                            }
                         }
+                        is AuthState.Error -> {
+                            android.widget.Toast.makeText(context, (authState as AuthState.Error).message, android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {}
                     }
                 }
 
                 AuthScreen(
+                    authState = authState,
                     onSignInClick = { viewModel.getGoogleSignInIntent() },
                     onSignInResult = { intent -> viewModel.handleGoogleSignInResult(intent) }
                 )

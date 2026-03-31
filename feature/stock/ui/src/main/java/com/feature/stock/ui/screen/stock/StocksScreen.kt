@@ -140,13 +140,13 @@ fun LazyListScope.stocksSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp) // Maintain external padding
-                .background(Color.White, RoundedCornerShape(14.dp)) // Unified radius
+                .background(Color.White, RoundedCornerShape(24.dp)) // Unified radius
                 .border(
                     width = 1.dp,
-                    color = greyColor,
-                    shape = RoundedCornerShape(14.dp)
+                    color = com.core.common.greyColor,
+                    shape = RoundedCornerShape(24.dp)
                 )
-                .clip(RoundedCornerShape(14.dp))
+                .clip(RoundedCornerShape(24.dp))
         ) {
 
             Column(modifier = Modifier.padding(start = 20.dp, top = 20.dp, bottom = 12.dp)) {
@@ -189,7 +189,7 @@ fun LazyListScope.stocksSection(
                 }
 
                 stocksState.selectedTab == StockTab.GAINERS -> {
-                    stocksState.gainers.forEach { stock ->
+                    stocksState.gainers.forEachIndexed { index, stock ->
                         StockItemCard(
                             ticker = stock.ticker,
                             companyName = stock.companyName,
@@ -199,11 +199,14 @@ fun LazyListScope.stocksSection(
                             maxPrice = stock.high,
                             onClick = { onStockClick(stock.companyName) }
                         )
+                        if (index < stocksState.gainers.size - 1) {
+                            HorizontalDivider(color = greyColor.copy(alpha = 0.3f), modifier = Modifier.padding(horizontal = 20.dp))
+                        }
                     }
                 }
 
                 stocksState.selectedTab == StockTab.LOSERS -> {
-                    stocksState.losers.forEach { stock ->
+                    stocksState.losers.forEachIndexed { index, stock ->
                         StockItemCard(
                             ticker = stock.ticker,
                             companyName = stock.companyName,
@@ -211,8 +214,11 @@ fun LazyListScope.stocksSection(
                             percentChange = stock.percentChange.toString(),
                             isGainer = false,
                             maxPrice = stock.high,
-                            onClick = { onStockClick(stock.ticker) }
+                            onClick = { onStockClick(stock.companyName) }
                         )
+                        if (index < stocksState.losers.size - 1) {
+                            HorizontalDivider(color = greyColor.copy(alpha = 0.3f), modifier = Modifier.padding(horizontal = 20.dp))
+                        }
                     }
                 }
 

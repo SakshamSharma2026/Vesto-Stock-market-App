@@ -70,6 +70,7 @@ Vesto follows **Clean Architecture** principles and the **MVVM** pattern, organi
 - **[Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html)**: Asynchronous programming and reactive streams.
 - **[Google Auth](https://developers.google.com/identity/sign-in/android)**: Seamless one-tap authentication.
 - **[Firebase](https://firebase.google.com/)**: Backend services for authentication and real-time data.
+- **GitHub Actions**: Automated CI/CD pipelines enforcing build checks and linting on every push.
 
 ---
 
